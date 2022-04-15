@@ -1,0 +1,4 @@
+diff --git a/blabla.rb b/app/my_file.rb
+similarity index 100%
+rename from blabla.rb
+rename to app/my_file.rb

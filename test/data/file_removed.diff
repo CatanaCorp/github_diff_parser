@@ -1,0 +1,17 @@
+diff --git a/package.json b/package.json
+deleted file mode 100644
+index 3ffb801..0000000
+--- a/package.json
++++ /dev/null
+@@ -1,11 +0,0 @@
+-{
+-  "name": "canary",
+-  "private": true,
+-  "dependencies": {
+-    "@rails/ujs": "^6.0.0",
+-    "turbolinks": "^5.2.0",
+-    "@rails/activestorage": "^6.0.0",
+-    "@rails/actioncable": "^6.0.0"
+-  },
+-  "version": "0.1.0"
+-}

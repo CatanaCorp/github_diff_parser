@@ -1,0 +1,11 @@
+diff --git a/app/my_file.rb b/app/my_file.rb
+index 03d99f2..d3dfbe4 100644
+--- a/app/my_file.rb
++++ b/app/my_file.rb
+@@ -6,6 +6,5 @@ def test1
+ 
+   def test2
+     "This file is just added"
+-    "This is a new line"
+   end
+ end

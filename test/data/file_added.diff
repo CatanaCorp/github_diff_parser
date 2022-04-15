@@ -1,0 +1,16 @@
+diff --git a/blabla.rb b/blabla.rb
+new file mode 100644
+index 0000000..d3dfbe4
+--- /dev/null
++++ b/blabla.rb
+@@ -0,0 +1,10 @@
++# frozen_string_literal: true
++
++class FileAdded
++  def test1
++  end
++
++  def test2
++    "This file is just added"
++  end
++end

@@ -1,0 +1,15 @@
+diff --git a/app/models/rule.rb b/app/models/rule.rb
+index 021f546..06fd809 100644
+--- a/app/models/rule.rb
++++ b/app/models/rule.rb
+@@ -60,7 +60,9 @@ class Rule < ApplicationRecord
+   def valid_regex
+     return errors.add(:regex, :blank) if regex.blank?
+
+-    Regexp.new(regex)
++    SafeRegexp.execute(Regexp.new(regex), :match?, "a" * 46)
+   rescue RegexpError
+     errors.add(:regex, :invalid)
++  rescue SafeRegexp::RegexpTimeout
++    errors.add(:regex, :takes_too_long)
+   end

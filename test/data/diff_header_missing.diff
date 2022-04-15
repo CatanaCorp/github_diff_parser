@@ -1,0 +1,10 @@
+index d3dfbe4..03d99f2 100644
+--- a/app/my_file.rb
++++ b/app/my_file.rb
+@@ -6,5 +6,6 @@ def test1
+ 
+   def test2
+     "This file is just added"
++    "This is a new line"
+   end
+ end

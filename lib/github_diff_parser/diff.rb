@@ -89,5 +89,62 @@ module GithubDiffParser
     def rename_mode?
       previous_filename != new_filename
     end
+
+    # A utility method that returns the current number of a line who might not be present in the diff.
+    # This is useful if you need to keep track of the updated line numbers in a file for every changes.
+    #
+    # @param line_number [Integer]
+    #
+    # @return [Integer]
+    def previous_line_number_is_now(line_number)
+      return line_number unless line_shifted?(line_number)
+
+      applicable_hunk = last_applicable_hunk_for_line(line_number)
+      line = applicable_hunk.find_previous_line(line_number)
+
+      if line
+        line.current_number
+      else
+        line_number + last_line_offset(applicable_hunk)
+      end
+    end
+
+    private
+
+    # Check if a line was shifted. A line is considered shifted if its number is superior to the first hunk's start
+    # range.
+    #
+    # @param line_number [Integer]
+    #
+    # @return [Boolean]
+    def line_shifted?(line_number)
+      first_hunk = hunks.first
+
+      line_number > first_hunk.new_file_start_line
+    end
+
+    # Find the last hunk that shifts the line. We need the last because we know it's the one that will shift the line
+    # the most.
+    #
+    # @param line_number [Integer]
+    #
+    # @return [GithubDiffParser::Hunk]
+    def last_applicable_hunk_for_line(line_number)
+      hunks.reverse_each.find do |hunk|
+        line_number >= hunk.previous_file_start_line
+      end
+    end
+
+    # Calculate the number difference of the last line. This method is called when we can't find the desired line number
+    # in the Hunk, which means the line we are searching for is not part of the diff.
+    #
+    # @param hunk [GithubDiffParser::Hunk]
+    #
+    # @return [Integer]
+    def last_line_offset(hunk)
+      last_line = hunk.lines.last
+
+      last_line.current_number - last_line.previous_number
+    end
   end
 end

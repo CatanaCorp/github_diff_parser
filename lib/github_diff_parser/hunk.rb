@@ -5,14 +5,20 @@ module GithubDiffParser
     # @return [Array<GithubDiffParser::Line>] all the contextual, added and removed lines belonging to this Hunk.
     attr_reader :lines
 
-    # @param previous_lino_start [String] the starting line number of the hunk for the original file
-    # @param new_lino_start [String] the starting line number of the hunk for the new file
+    # @return [Integer] (see #initialize)
+    attr_reader :previous_file_start_line
+
+    # @return [Integer] (see #initialize)
+    attr_reader :new_file_start_line
+
+    # @param previous_file_start_line [String] the starting line number of the hunk for the original file
+    # @param new_file_start_line [String] the starting line number of the hunk for the new file
     #
-    # @example Representation of the previous_lino_start and new_lino_start in a Git Diff
-    #   @@ -6,5 +6,6 @@ def test1 # => The first 6 is the previous_lino_start, the second is the new_lino_start
-    def initialize(previous_lino_start, new_lino_start)
-      @previous_lino_start = Integer(previous_lino_start)
-      @new_lino_start = Integer(new_lino_start)
+    # @example Representation of the previous_file_start_line and new_file_start_line in a Git Diff
+    #   @@ -6,5 +6,6 @@ def test1 # => The first 6 is the previous_file_start_line the second is the new_file_start_line
+    def initialize(previous_file_start_line, new_file_start_line)
+      @previous_file_start_line = Integer(previous_file_start_line)
+      @new_file_start_line = Integer(new_file_start_line)
       @lines = []
     end
 
@@ -25,14 +31,14 @@ module GithubDiffParser
 
       case type
       when :deletion
-        number = @previous_lino_start + contextual_lines.count + deletion_lines.count
+        number = @previous_file_start_line + contextual_lines.count + deletion_lines.count
         line = Line.new(line_content, number, nil, patch_position, type)
       when :addition
-        number = @new_lino_start + contextual_lines.count + addition_lines.count
+        number = @new_file_start_line + contextual_lines.count + addition_lines.count
         line = Line.new(line_content, nil, number, patch_position, type)
       when :contextual
-        before = @previous_lino_start + contextual_lines.count + deletion_lines.count
-        now =  @new_lino_start + contextual_lines.count + addition_lines.count
+        before = @previous_file_start_line + contextual_lines.count + deletion_lines.count
+        now =  @new_file_start_line + contextual_lines.count + addition_lines.count
         line = Line.new(line_content, before, now, patch_position, type)
       end
 
@@ -58,6 +64,24 @@ module GithubDiffParser
     # @return [Array<GithubDiffParser::Line>]
     def deletion_lines
       @lines.select(&:deletion?)
+    end
+
+    # Find a line in the Hunk by it's previous line number.
+    #
+    # @param line_number [Integer]
+    #
+    # @return [GithubDiffParser::Line, nil]
+    def find_previous_line(line_number)
+      lines.find { |line| line.previous_number == line_number }
+    end
+
+    # Find a line in the Hunk by it's current line number.
+    #
+    # @param line_number [Integer]
+    #
+    # @return [GithubDiffParser::Line, nil]
+    def find_current_line(line_number)
+      lines.find { |line| line.current_number == line_number }
     end
   end
 end

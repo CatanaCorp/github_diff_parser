@@ -1,0 +1,17 @@
+diff --git a/app/models/rule.rb b/app/models/rule.rb
+index 021f546..06fd809 100644
+--- a/app/models/rule.rb
++++ b/app/models/rule.rb
+@@ -60,9 +60,11 @@ abc
+   def test
+     a
+ 
+-    b
++    c
+   rescue Bla
+     errors.add(:name, :invalid)
++  rescue MyError
++    errors.add(:name, :too_long)
+   end
+ 
+   def valid_plot

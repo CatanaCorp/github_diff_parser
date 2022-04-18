@@ -84,11 +84,19 @@ module GithubDiffParser
     #   --- a/app/my_file.rb
     #   +++ b/app/my_file.rb
     #   @@ -5,6 +5,6 @@ def test1                     <-- Match this line -->
+    #
+    # @example Alternative match
+    #
+    #   diff --git a/app/my_file.rb b/app/my_file.rb
+    #   index d3dfbe4..ac0e8b3 100644
+    #   --- a/app/my_file.rb
+    #   +++ b/app/my_file.rb
+    #   @@ -5 +5 @@ def test1                         <-- Match this line -->
     RANGE_HEADER = %r{
       \A                                               # Start of line
       @@\s                                             # Match '@@ '
-      -(?<previous_lino_start>\d+),\d+\s               # Match '-1,11 ' and capture the '1' part
-      \+(?<new_lino_start>\d+),\d+\s                   # Match '+1,34 ' and capture the '1' part
+      -(?<previous_lino_start>\d+)(,\d+)?\s            # Match '-1,11 ' or match '-1 ' and capture the '1' part
+      \+(?<new_lino_start>\d+)(,\d+)?\s                # Match '+1,34 ' or match '+1 ' and capture the '1' part
       @@.*                                             # Match '@@ Any text'
       \Z                                               # End of line
     }x

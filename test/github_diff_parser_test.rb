@@ -225,6 +225,36 @@ class GithubDiffParserTest < Minitest::Test
     end
   end
 
+  def test_when_range_header_has_no_comma
+    parsed_diffs = GithubDiffParser.parse(read_diff("range_header_with_no_comma"))
+    assert_equal(1, parsed_diffs.count)
+
+    parsed_diff = parsed_diffs.first
+    assert_equal("app/my_file.rb", parsed_diff.previous_filename)
+    assert_equal("app/my_file.rb", parsed_diff.new_filename)
+    assert_equal(1, parsed_diff.hunks.count)
+
+    hunk = parsed_diff.hunks.first
+    assert_equal(7, hunk.lines.count)
+    assert_equal(5, hunk.contextual_lines.count)
+    assert_equal(1, hunk.deletion_lines.count)
+    assert_equal(1, hunk.addition_lines.count)
+
+    expected_lines = [
+      { previous_number: 5, current_number: 5, patch_position: 1, type: :contextual? },
+      { previous_number: 6, current_number: 6, patch_position: 2, type: :contextual? },
+      { previous_number: 7, current_number: 7, patch_position: 3, type: :contextual? },
+      { previous_number: 8, current_number: nil, patch_position: 4, type: :deletion? },
+      { previous_number: nil, current_number: 8, patch_position: 5, type: :addition? },
+      { previous_number: 9, current_number: 9, patch_position: 6, type: :contextual? },
+      { previous_number: 10, current_number: 10, patch_position: 7, type: :contextual? },
+    ]
+
+    expected_lines.each_with_index do |expected_line, index|
+      assert_line(expected_line, hunk.lines[index])
+    end
+  end
+
   def test_raise_when_diff_is_not_a_diff
     assert_raises(GithubDiffParser::InvalidDiff) do
       GithubDiffParser.parse(read_diff("invalid"))

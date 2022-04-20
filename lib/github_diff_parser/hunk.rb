@@ -25,10 +25,9 @@ module GithubDiffParser
     # Add a line to this Hunk
     #
     # @param line_content [String] the line content itself
+    # @param patch_position [Integer] the the position of this line in the patch
     # @param type [Symbol] the type of the line. Can be either :addition, :deletion or :contextual
-    def add_line(line_content, type:)
-      patch_position = @lines.count + 1
-
+    def add_line(line_content, patch_position, type:)
       case type
       when :deletion
         number = @previous_file_start_line + contextual_lines.count + deletion_lines.count

@@ -42,7 +42,9 @@ module GithubDiffParser
       last_hunk = hunks.last
       raise InvalidDiff, "Couldn't find the Git diff Range Header." unless last_hunk
 
-      last_hunk.add_line(line_content, type: type)
+      patch_position = hunks.flat_map(&:lines).count + 1
+
+      last_hunk.add_line(line_content, patch_position, type: type)
     end
 
     # Check if this Diff is set to deleted mode.

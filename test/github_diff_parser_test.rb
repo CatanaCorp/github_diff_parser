@@ -200,24 +200,24 @@ class GithubDiffParserTest < Minitest::Test
     assert_equal(9, hunk.addition_lines.count)
 
     expected_lines = [
-      { previous_number: 46, current_number: 45, patch_position: 1, type: :contextual? },
-      { previous_number: 47, current_number: 46, patch_position: 2, type: :contextual? },
-      { previous_number: 48, current_number: 47, patch_position: 3, type: :contextual? },
-      { previous_number: 49, current_number: nil, patch_position: 4, type: :deletion? },
-      { previous_number: 50, current_number: nil, patch_position: 5, type: :deletion? },
-      { previous_number: 51, current_number: nil, patch_position: 6, type: :deletion? },
-      { previous_number: nil, current_number: 48, patch_position: 7, type: :addition? },
-      { previous_number: nil, current_number: 49, patch_position: 8, type: :addition? },
-      { previous_number: nil, current_number: 50, patch_position: 9, type: :addition? },
-      { previous_number: nil, current_number: 51, patch_position: 10, type: :addition? },
-      { previous_number: nil, current_number: 52, patch_position: 11, type: :addition? },
-      { previous_number: nil, current_number: 53, patch_position: 12, type: :addition? },
-      { previous_number: nil, current_number: 54, patch_position: 13, type: :addition? },
-      { previous_number: nil, current_number: 55, patch_position: 14, type: :addition? },
-      { previous_number: nil, current_number: 56, patch_position: 15, type: :addition? },
-      { previous_number: 52, current_number: 57, patch_position: 16, type: :contextual? },
-      { previous_number: 53, current_number: 58, patch_position: 17, type: :contextual? },
-      { previous_number: 54, current_number: 59, patch_position: 18, type: :contextual? },
+      { previous_number: 46, current_number: 45, patch_position: 8, type: :contextual? },
+      { previous_number: 47, current_number: 46, patch_position: 9, type: :contextual? },
+      { previous_number: 48, current_number: 47, patch_position: 10, type: :contextual? },
+      { previous_number: 49, current_number: nil, patch_position: 11, type: :deletion? },
+      { previous_number: 50, current_number: nil, patch_position: 12, type: :deletion? },
+      { previous_number: 51, current_number: nil, patch_position: 13, type: :deletion? },
+      { previous_number: nil, current_number: 48, patch_position: 14, type: :addition? },
+      { previous_number: nil, current_number: 49, patch_position: 15, type: :addition? },
+      { previous_number: nil, current_number: 50, patch_position: 16, type: :addition? },
+      { previous_number: nil, current_number: 51, patch_position: 17, type: :addition? },
+      { previous_number: nil, current_number: 52, patch_position: 18, type: :addition? },
+      { previous_number: nil, current_number: 53, patch_position: 19, type: :addition? },
+      { previous_number: nil, current_number: 54, patch_position: 20, type: :addition? },
+      { previous_number: nil, current_number: 55, patch_position: 21, type: :addition? },
+      { previous_number: nil, current_number: 56, patch_position: 22, type: :addition? },
+      { previous_number: 52, current_number: 57, patch_position: 23, type: :contextual? },
+      { previous_number: 53, current_number: 58, patch_position: 24, type: :contextual? },
+      { previous_number: 54, current_number: 59, patch_position: 25, type: :contextual? },
     ]
 
     expected_lines.each_with_index do |expected_line, index|
@@ -299,7 +299,7 @@ class GithubDiffParserTest < Minitest::Test
     assert_equal(
       expected[:patch_position],
       actual.patch_position,
-      "The patch position don't match. Expected: #{expected[:pach_position]}, Actual: #{actual.patch_position}"
+      "The patch position don't match. Expected: #{expected[:patch_position]}, Actual: #{actual.patch_position}"
     )
 
     assert_predicate(actual, expected[:type])

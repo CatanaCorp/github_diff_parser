@@ -156,5 +156,27 @@ module GithubDiffParser
       (?<line>.*)                                      # Match the content of the line itself
       \Z                                               # End of line
     }x
+
+    # This Regexp is used to match the first line of a resulting git format-patch.
+    #
+    # @example Match the line and capture the commit sha
+    #   From 21e02a7fd129a0c17e3dfbf39c6e69240c3dc3d2 Mon Sep 17 00:00:00 2001
+    PATCH_COMMIT = %r{
+      \A                                              # Start of line
+      From\s                                          # Match 'From '
+      (?<commit>[a-z0-9]+)                            # Match the commit sha and capture it
+      \s.*                                            # Match the remaining of the line ' Mon Sep 17 00:00:00 2001'
+      \Z                                              # End of line
+    }x
+
+    # This Regexp is used to match the timestamp of the commit.
+    #
+    # @example Match the line and capture the timestamp
+    #   Date: Fri, 15 Apr 2022 12:22:33 +0200
+    PATCH_COMMIT_TIMESTAMP = %r{
+      \A                                             # Start of line
+      Date:\s(?<timestamp>.*)                        # Match 'Date: Fri, 15 Apr 2022 12:22:33 +0200'
+      \Z                                             # End of line
+    }x
   end
 end

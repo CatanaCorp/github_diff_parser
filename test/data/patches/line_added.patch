@@ -1,0 +1,20 @@
+From 21e02a7fd129a0c17e3dfbf39c6e69240c3dc3d2 Mon Sep 17 00:00:00 2001
+From: Edouard CHIN <chin.edouard@gmail.com>
+Date: Fri, 15 Apr 2022 12:22:33 +0200
+Subject: [PATCH] Line added
+
+---
+ app/my_file.rb | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/app/my_file.rb b/app/my_file.rb
+index d3dfbe4..03d99f2 100644
+--- a/app/my_file.rb
++++ b/app/my_file.rb
+@@ -6,5 +6,6 @@ def test1
+ 
+   def test2
+     "This file is just added"
++    "This is a new line"
+   end
+ end

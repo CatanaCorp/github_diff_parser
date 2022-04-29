@@ -1,0 +1,42 @@
+From 921263bb924210308aec9258a8fa445f147dd3b1 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Andr=C3=A9=20Luis=20Leal=20Cardoso=20Junior?=
+ <andrehjr@gmail.com>
+Date: Wed, 12 Jan 2022 19:41:25 -0300
+Subject: [PATCH] Only configure smtp_settings if provided on configuration
+
+---
+ actionmailer/lib/action_mailer/railtie.rb     | 13 ++++++---
+ .../test/application/configuration_test.rb    | 29 +++++++++++++++++++
+ 2 files changed, 38 insertions(+), 4 deletions(-)
+
+diff --git a/actionmailer/lib/action_mailer/railtie.rb b/actionmailer/lib/action_mailer/railtie.rb
+index 70c4937c418b2..bd87fe1057f90 100644
+--- a/actionmailer/lib/action_mailer/railtie.rb
++++ b/actionmailer/lib/action_mailer/railtie.rb
+@@ -23,7 +23,6 @@ class Railtie < Rails::Railtie # :nodoc:
+       options.stylesheets_dir ||= paths["public/stylesheets"].first
+       options.show_previews = Rails.env.development? if options.show_previews.nil?
+       options.cache_store ||= Rails.cache
+-      options.smtp_settings ||= {}
+ 
+       if options.show_previews
+         options.preview_path ||= defined?(Rails.root) ? "#{Rails.root}/test/mailers/previews" : nil
+@@ -46,9 +45,15 @@ class Railtie < Rails::Railtie # :nodoc:
+           self.delivery_job = delivery_job.constantize
+         end
+ 
+-        if smtp_timeout = options.delete(:smtp_timeout)
+-          options.smtp_settings[:open_timeout] ||= smtp_timeout
+-          options.smtp_settings[:read_timeout] ||= smtp_timeout
++        if options.smtp_settings
++          self.smtp_settings = options.smtp_settings
++        end
++
++        smtp_timeout = options.delete(:smtp_timeout)
++
++        if self.smtp_settings && smtp_timeout
++          self.smtp_settings[:open_timeout] ||= smtp_timeout
++          self.smtp_settings[:read_timeout] ||= smtp_timeout
+         end
+ 
+         options.each { |k, v| send("#{k}=", v) }

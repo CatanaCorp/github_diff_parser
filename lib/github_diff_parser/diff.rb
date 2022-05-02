@@ -22,6 +22,11 @@ module GithubDiffParser
       @hunks = []
     end
 
+    # Get all the lines in this diff. Shortcut for `diff.hunks.each { |h| h.lines }`
+    def lines
+      hunks.flat_map(&:lines)
+    end
+
     # Add a Git Hunk to the diff.
     #
     # @param previous_lino_start [String] the starting line number of the hunk for the original file

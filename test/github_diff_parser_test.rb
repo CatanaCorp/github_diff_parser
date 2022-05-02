@@ -273,6 +273,12 @@ class GithubDiffParserTest < Minitest::Test
     end
   end
 
+  def test_lines
+    parsed_diffs = GithubDiffParser.parse(read_diff("line_added"))
+
+    assert_equal(6, parsed_diffs[0].lines.count)
+  end
+
   private
 
   def assert_equal(expected, *args)

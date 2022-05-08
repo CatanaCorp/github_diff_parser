@@ -11,8 +11,16 @@ module GithubDiffParser
     # @return [Array<GithubDiffParser::Hunk>] the hunks belonging to this diff
     attr_reader :hunks
 
+    # @return [String] the hash of the previous file. This is indicate in the diff
+    #   by the line `index abc..def`. The +abc+ part is the previous_index.
+    attr_reader :previous_index
+
+    # @return [String] the hash of the new file. This is indicate in the diff
+    #   by the line `index abc..def`. The +def+ part is the previous_index.
+    attr_reader :new_index
+
     # @private
-    attr_writer :file_mode
+    attr_writer :file_mode, :previous_index, :new_index
 
     # @param previous_filename [String] the original filename. Represented by "diff --git /a filename"
     # @param new_filename [String]      the new filename. Represented by "diff --git /b filename"

@@ -19,6 +19,23 @@ module GithubDiffParser
       \Z                                               # End of line
     }x
 
+    # This Regexp is used to match the sha of the previous and the file
+    #
+    # @example
+    #
+    #   diff --git a/app/my_file.rb b/app/my_file.rb
+    #   index d3dfbe4..ac0e8b3 100644                   <-- Match this line -->
+    #   --- a/app/my_file.rb
+    #   +++ b/app/my_file.rb
+    #   @@ -5,6 +5,6 @@ def test1
+    INDEX_HEADER = %r{
+      \A                                               # Start of line
+      index\s                                          # Match 'index '
+      (?<previous_index>[a-z0-9]+)                     # Match and capture alphanumerical chars
+      ..                                               # Match '..' literally
+      (?<new_index>[a-z0-9]+)                          # Match and captuer alphanumerical chars
+    }x
+
     # This Regexp is used to match the header containing the original filename.
     #
     # @example Possible header on a diff.

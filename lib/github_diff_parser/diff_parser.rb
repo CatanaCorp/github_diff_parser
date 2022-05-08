@@ -18,6 +18,8 @@ module GithubDiffParser
         case line
         when Regexes::DIFF_HEADER
           process_new_diff(Regexp.last_match)
+        when Regexes::INDEX_HEADER
+          process_index(Regexp.last_match)
         when Regexes::MODE_HEADER
           process_diff_file_mode(Regexp.last_match)
         when Regexes::ORIGINAL_FILE_HEADER, Regexes::NEW_FILE_HEADER
@@ -45,6 +47,16 @@ module GithubDiffParser
       @parsed_diffs << @current_diff if @current_diff
 
       @current_diff = Diff.new(match_data[:previous_filename], match_data[:new_filename])
+    end
+
+    # Called when encountering a `index abc..def` in the Git Diff output.
+    #
+    # @param match_data [MatchData]
+    def process_index(match_data)
+      validate_diff
+
+      @current_diff.previous_index = match_data[:previous_index]
+      @current_diff.new_index = match_data[:new_index]
     end
 
     # Called when encountering a `new file mode 100644` or `delete file mode 100644` in the Git Diff output.

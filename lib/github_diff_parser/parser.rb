@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module GithubDiffParser
-  class DiffParser
+  class Parser
     # @param git_diff [String] the Git Diff output
     def initialize(git_diff)
       @git_diff = git_diff

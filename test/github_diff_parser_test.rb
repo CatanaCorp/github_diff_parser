@@ -300,19 +300,20 @@ class GithubDiffParserTest < Minitest::Test
     assert_equal(
       expected[:previous_number],
       actual.previous_number,
-      "The line previous number don't match. Expected: #{expected[:previous_number]}, Actual: #{actual.previous_number}"
+      "The line previous number don't match. Expected: #{expected[:previous_number]}, " \
+        "Actual: #{actual.previous_number}",
     )
 
     assert_equal(
       expected[:current_number],
       actual.current_number,
-      "The line actual number don't match. Expected: #{expected[:current_number]}, Actual: #{actual.current_number}"
+      "The line actual number don't match. Expected: #{expected[:current_number]}, Actual: #{actual.current_number}",
     )
 
     assert_equal(
       expected[:patch_position],
       actual.patch_position,
-      "The patch position don't match. Expected: #{expected[:patch_position]}, Actual: #{actual.patch_position}"
+      "The patch position don't match. Expected: #{expected[:patch_position]}, Actual: #{actual.patch_position}",
     )
 
     assert_predicate(actual, expected[:type])

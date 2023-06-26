@@ -11,14 +11,14 @@ Gem::Specification.new do |spec|
   spec.summary = "A Ruby Gem to parse unified git diff output."
   spec.description = "A Ruby Gem to parse unified git diff output."
 
-  spec.homepage = "https://github.com/Edouard-chin/git_diff_parser"
+  spec.homepage = "https://github.com/CatanaCorp/github_diff_parser"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 3.0.0"
 
   spec.metadata["allowed_push_host"] = "https://rubygems.org"
 
   spec.metadata["homepage_uri"] = spec.homepage
-  spec.metadata["source_code_uri"] = "https://github.com/Edouard-chin/git_diff_parser"
+  spec.metadata["source_code_uri"] = "https://github.com/CatanaCorp/github_diff_parser"
   spec.metadata["rubygems_mfa_required"] = "true"
 
   # Specify which files should be added to the gem when it is released.

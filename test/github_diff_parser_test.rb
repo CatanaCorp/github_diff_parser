@@ -18,12 +18,42 @@ class GithubDiffParserTest < Minitest::Test
     assert_equal(1, hunk.addition_lines.count)
 
     expected_lines = [
-      { previous_number: 6, current_number: 6, patch_position: 1, type: :contextual? },
-      { previous_number: 7, current_number: 7, patch_position: 2, type: :contextual? },
-      { previous_number: 8, current_number: 8, patch_position: 3, type: :contextual? },
-      { previous_number: nil, current_number: 9, patch_position: 4, type: :addition? },
-      { previous_number: 9, current_number: 10, patch_position: 5, type: :contextual? },
-      { previous_number: 10, current_number: 11, patch_position: 6, type: :contextual? },
+      {
+        previous_number: 6,
+        current_number: 6,
+        patch_position: 1,
+        type: :contextual?,
+      },
+      {
+        previous_number: 7,
+        current_number: 7,
+        patch_position: 2,
+        type: :contextual?,
+      },
+      {
+        previous_number: 8,
+        current_number: 8,
+        patch_position: 3,
+        type: :contextual?,
+      },
+      {
+        previous_number: nil,
+        current_number: 9,
+        patch_position: 4,
+        type: :addition?,
+      },
+      {
+        previous_number: 9,
+        current_number: 10,
+        patch_position: 5,
+        type: :contextual?,
+      },
+      {
+        previous_number: 10,
+        current_number: 11,
+        patch_position: 6,
+        type: :contextual?,
+      },
     ]
 
     expected_lines.each_with_index do |expected_line, index|
@@ -47,12 +77,42 @@ class GithubDiffParserTest < Minitest::Test
     assert_equal(1, hunk.deletion_lines.count)
 
     expected_lines = [
-      { previous_number: 6, current_number: 6, patch_position: 1, type: :contextual? },
-      { previous_number: 7, current_number: 7, patch_position: 2, type: :contextual? },
-      { previous_number: 8, current_number: 8, patch_position: 3, type: :contextual? },
-      { previous_number: 9, current_number: nil, patch_position: 4, type: :deletion? },
-      { previous_number: 10, current_number: 9, patch_position: 5, type: :contextual? },
-      { previous_number: 11, current_number: 10, patch_position: 6, type: :contextual? },
+      {
+        previous_number: 6,
+        current_number: 6,
+        patch_position: 1,
+        type: :contextual?,
+      },
+      {
+        previous_number: 7,
+        current_number: 7,
+        patch_position: 2,
+        type: :contextual?,
+      },
+      {
+        previous_number: 8,
+        current_number: 8,
+        patch_position: 3,
+        type: :contextual?,
+      },
+      {
+        previous_number: 9,
+        current_number: nil,
+        patch_position: 4,
+        type: :deletion?,
+      },
+      {
+        previous_number: 10,
+        current_number: 9,
+        patch_position: 5,
+        type: :contextual?,
+      },
+      {
+        previous_number: 11,
+        current_number: 10,
+        patch_position: 6,
+        type: :contextual?,
+      },
     ]
 
     expected_lines.each_with_index do |expected_line, index|
@@ -77,13 +137,48 @@ class GithubDiffParserTest < Minitest::Test
     assert_equal(1, hunk.addition_lines.count)
 
     expected_lines = [
-      { previous_number: 5, current_number: 5, patch_position: 1, type: :contextual? },
-      { previous_number: 6, current_number: 6, patch_position: 2, type: :contextual? },
-      { previous_number: 7, current_number: 7, patch_position: 3, type: :contextual? },
-      { previous_number: 8, current_number: nil, patch_position: 4, type: :deletion? },
-      { previous_number: nil, current_number: 8, patch_position: 5, type: :addition? },
-      { previous_number: 9, current_number: 9, patch_position: 6, type: :contextual? },
-      { previous_number: 10, current_number: 10, patch_position: 7, type: :contextual? },
+      {
+        previous_number: 5,
+        current_number: 5,
+        patch_position: 1,
+        type: :contextual?,
+      },
+      {
+        previous_number: 6,
+        current_number: 6,
+        patch_position: 2,
+        type: :contextual?,
+      },
+      {
+        previous_number: 7,
+        current_number: 7,
+        patch_position: 3,
+        type: :contextual?,
+      },
+      {
+        previous_number: 8,
+        current_number: nil,
+        patch_position: 4,
+        type: :deletion?,
+      },
+      {
+        previous_number: nil,
+        current_number: 8,
+        patch_position: 5,
+        type: :addition?,
+      },
+      {
+        previous_number: 9,
+        current_number: 9,
+        patch_position: 6,
+        type: :contextual?,
+      },
+      {
+        previous_number: 10,
+        current_number: 10,
+        patch_position: 7,
+        type: :contextual?,
+      },
     ]
 
     expected_lines.each_with_index do |expected_line, index|
@@ -107,16 +202,66 @@ class GithubDiffParserTest < Minitest::Test
     assert_equal(10, hunk.addition_lines.count)
 
     expected_lines = [
-      { previous_number: nil, current_number: 1, patch_position: 1, type: :addition? },
-      { previous_number: nil, current_number: 2, patch_position: 2, type: :addition? },
-      { previous_number: nil, current_number: 3, patch_position: 3, type: :addition? },
-      { previous_number: nil, current_number: 4, patch_position: 4, type: :addition? },
-      { previous_number: nil, current_number: 5, patch_position: 5, type: :addition? },
-      { previous_number: nil, current_number: 6, patch_position: 6, type: :addition? },
-      { previous_number: nil, current_number: 7, patch_position: 7, type: :addition? },
-      { previous_number: nil, current_number: 8, patch_position: 8, type: :addition? },
-      { previous_number: nil, current_number: 9, patch_position: 9, type: :addition? },
-      { previous_number: nil, current_number: 10, patch_position: 10, type: :addition? },
+      {
+        previous_number: nil,
+        current_number: 1,
+        patch_position: 1,
+        type: :addition?,
+      },
+      {
+        previous_number: nil,
+        current_number: 2,
+        patch_position: 2,
+        type: :addition?,
+      },
+      {
+        previous_number: nil,
+        current_number: 3,
+        patch_position: 3,
+        type: :addition?,
+      },
+      {
+        previous_number: nil,
+        current_number: 4,
+        patch_position: 4,
+        type: :addition?,
+      },
+      {
+        previous_number: nil,
+        current_number: 5,
+        patch_position: 5,
+        type: :addition?,
+      },
+      {
+        previous_number: nil,
+        current_number: 6,
+        patch_position: 6,
+        type: :addition?,
+      },
+      {
+        previous_number: nil,
+        current_number: 7,
+        patch_position: 7,
+        type: :addition?,
+      },
+      {
+        previous_number: nil,
+        current_number: 8,
+        patch_position: 8,
+        type: :addition?,
+      },
+      {
+        previous_number: nil,
+        current_number: 9,
+        patch_position: 9,
+        type: :addition?,
+      },
+      {
+        previous_number: nil,
+        current_number: 10,
+        patch_position: 10,
+        type: :addition?,
+      },
     ]
 
     expected_lines.each_with_index do |expected_line, index|
@@ -140,17 +285,72 @@ class GithubDiffParserTest < Minitest::Test
     assert_equal(11, hunk.deletion_lines.count)
 
     expected_lines = [
-      { previous_number: 1, current_number: nil, patch_position: 1, type: :deletion? },
-      { previous_number: 2, current_number: nil, patch_position: 2, type: :deletion? },
-      { previous_number: 3, current_number: nil, patch_position: 3, type: :deletion? },
-      { previous_number: 4, current_number: nil, patch_position: 4, type: :deletion? },
-      { previous_number: 5, current_number: nil, patch_position: 5, type: :deletion? },
-      { previous_number: 6, current_number: nil, patch_position: 6, type: :deletion? },
-      { previous_number: 7, current_number: nil, patch_position: 7, type: :deletion? },
-      { previous_number: 8, current_number: nil, patch_position: 8, type: :deletion? },
-      { previous_number: 9, current_number: nil, patch_position: 9, type: :deletion? },
-      { previous_number: 10, current_number: nil, patch_position: 10, type: :deletion? },
-      { previous_number: 11, current_number: nil, patch_position: 11, type: :deletion? },
+      {
+        previous_number: 1,
+        current_number: nil,
+        patch_position: 1,
+        type: :deletion?,
+      },
+      {
+        previous_number: 2,
+        current_number: nil,
+        patch_position: 2,
+        type: :deletion?,
+      },
+      {
+        previous_number: 3,
+        current_number: nil,
+        patch_position: 3,
+        type: :deletion?,
+      },
+      {
+        previous_number: 4,
+        current_number: nil,
+        patch_position: 4,
+        type: :deletion?,
+      },
+      {
+        previous_number: 5,
+        current_number: nil,
+        patch_position: 5,
+        type: :deletion?,
+      },
+      {
+        previous_number: 6,
+        current_number: nil,
+        patch_position: 6,
+        type: :deletion?,
+      },
+      {
+        previous_number: 7,
+        current_number: nil,
+        patch_position: 7,
+        type: :deletion?,
+      },
+      {
+        previous_number: 8,
+        current_number: nil,
+        patch_position: 8,
+        type: :deletion?,
+      },
+      {
+        previous_number: 9,
+        current_number: nil,
+        patch_position: 9,
+        type: :deletion?,
+      },
+      {
+        previous_number: 10,
+        current_number: nil,
+        patch_position: 10,
+        type: :deletion?,
+      },
+      {
+        previous_number: 11,
+        current_number: nil,
+        patch_position: 11,
+        type: :deletion?,
+      },
     ]
 
     expected_lines.each_with_index do |expected_line, index|
@@ -185,13 +385,48 @@ class GithubDiffParserTest < Minitest::Test
     assert_equal(1, hunk.deletion_lines.count)
 
     expected_lines = [
-      { previous_number: 23, current_number: 23, patch_position: 1, type: :contextual? },
-      { previous_number: 24, current_number: 24, patch_position: 2, type: :contextual? },
-      { previous_number: 25, current_number: 25, patch_position: 3, type: :contextual? },
-      { previous_number: 26, current_number: nil, patch_position: 4, type: :deletion? },
-      { previous_number: 27, current_number: 26, patch_position: 5, type: :contextual? },
-      { previous_number: 28, current_number: 27, patch_position: 6, type: :contextual? },
-      { previous_number: 29, current_number: 28, patch_position: 7, type: :contextual? },
+      {
+        previous_number: 23,
+        current_number: 23,
+        patch_position: 1,
+        type: :contextual?,
+      },
+      {
+        previous_number: 24,
+        current_number: 24,
+        patch_position: 2,
+        type: :contextual?,
+      },
+      {
+        previous_number: 25,
+        current_number: 25,
+        patch_position: 3,
+        type: :contextual?,
+      },
+      {
+        previous_number: 26,
+        current_number: nil,
+        patch_position: 4,
+        type: :deletion?,
+      },
+      {
+        previous_number: 27,
+        current_number: 26,
+        patch_position: 5,
+        type: :contextual?,
+      },
+      {
+        previous_number: 28,
+        current_number: 27,
+        patch_position: 6,
+        type: :contextual?,
+      },
+      {
+        previous_number: 29,
+        current_number: 28,
+        patch_position: 7,
+        type: :contextual?,
+      },
     ]
 
     expected_lines.each_with_index do |expected_line, index|
@@ -206,24 +441,114 @@ class GithubDiffParserTest < Minitest::Test
     assert_equal(9, hunk.addition_lines.count)
 
     expected_lines = [
-      { previous_number: 46, current_number: 45, patch_position: 9, type: :contextual? },
-      { previous_number: 47, current_number: 46, patch_position: 10, type: :contextual? },
-      { previous_number: 48, current_number: 47, patch_position: 11, type: :contextual? },
-      { previous_number: 49, current_number: nil, patch_position: 12, type: :deletion? },
-      { previous_number: 50, current_number: nil, patch_position: 13, type: :deletion? },
-      { previous_number: 51, current_number: nil, patch_position: 14, type: :deletion? },
-      { previous_number: nil, current_number: 48, patch_position: 15, type: :addition? },
-      { previous_number: nil, current_number: 49, patch_position: 16, type: :addition? },
-      { previous_number: nil, current_number: 50, patch_position: 17, type: :addition? },
-      { previous_number: nil, current_number: 51, patch_position: 18, type: :addition? },
-      { previous_number: nil, current_number: 52, patch_position: 19, type: :addition? },
-      { previous_number: nil, current_number: 53, patch_position: 20, type: :addition? },
-      { previous_number: nil, current_number: 54, patch_position: 21, type: :addition? },
-      { previous_number: nil, current_number: 55, patch_position: 22, type: :addition? },
-      { previous_number: nil, current_number: 56, patch_position: 23, type: :addition? },
-      { previous_number: 52, current_number: 57, patch_position: 24, type: :contextual? },
-      { previous_number: 53, current_number: 58, patch_position: 25, type: :contextual? },
-      { previous_number: 54, current_number: 59, patch_position: 26, type: :contextual? },
+      {
+        previous_number: 46,
+        current_number: 45,
+        patch_position: 9,
+        type: :contextual?,
+      },
+      {
+        previous_number: 47,
+        current_number: 46,
+        patch_position: 10,
+        type: :contextual?,
+      },
+      {
+        previous_number: 48,
+        current_number: 47,
+        patch_position: 11,
+        type: :contextual?,
+      },
+      {
+        previous_number: 49,
+        current_number: nil,
+        patch_position: 12,
+        type: :deletion?,
+      },
+      {
+        previous_number: 50,
+        current_number: nil,
+        patch_position: 13,
+        type: :deletion?,
+      },
+      {
+        previous_number: 51,
+        current_number: nil,
+        patch_position: 14,
+        type: :deletion?,
+      },
+      {
+        previous_number: nil,
+        current_number: 48,
+        patch_position: 15,
+        type: :addition?,
+      },
+      {
+        previous_number: nil,
+        current_number: 49,
+        patch_position: 16,
+        type: :addition?,
+      },
+      {
+        previous_number: nil,
+        current_number: 50,
+        patch_position: 17,
+        type: :addition?,
+      },
+      {
+        previous_number: nil,
+        current_number: 51,
+        patch_position: 18,
+        type: :addition?,
+      },
+      {
+        previous_number: nil,
+        current_number: 52,
+        patch_position: 19,
+        type: :addition?,
+      },
+      {
+        previous_number: nil,
+        current_number: 53,
+        patch_position: 20,
+        type: :addition?,
+      },
+      {
+        previous_number: nil,
+        current_number: 54,
+        patch_position: 21,
+        type: :addition?,
+      },
+      {
+        previous_number: nil,
+        current_number: 55,
+        patch_position: 22,
+        type: :addition?,
+      },
+      {
+        previous_number: nil,
+        current_number: 56,
+        patch_position: 23,
+        type: :addition?,
+      },
+      {
+        previous_number: 52,
+        current_number: 57,
+        patch_position: 24,
+        type: :contextual?,
+      },
+      {
+        previous_number: 53,
+        current_number: 58,
+        patch_position: 25,
+        type: :contextual?,
+      },
+      {
+        previous_number: 54,
+        current_number: 59,
+        patch_position: 26,
+        type: :contextual?,
+      },
     ]
 
     expected_lines.each_with_index do |expected_line, index|
@@ -248,13 +573,48 @@ class GithubDiffParserTest < Minitest::Test
     assert_equal(1, hunk.addition_lines.count)
 
     expected_lines = [
-      { previous_number: 5, current_number: 5, patch_position: 1, type: :contextual? },
-      { previous_number: 6, current_number: 6, patch_position: 2, type: :contextual? },
-      { previous_number: 7, current_number: 7, patch_position: 3, type: :contextual? },
-      { previous_number: 8, current_number: nil, patch_position: 4, type: :deletion? },
-      { previous_number: nil, current_number: 8, patch_position: 5, type: :addition? },
-      { previous_number: 9, current_number: 9, patch_position: 6, type: :contextual? },
-      { previous_number: 10, current_number: 10, patch_position: 7, type: :contextual? },
+      {
+        previous_number: 5,
+        current_number: 5,
+        patch_position: 1,
+        type: :contextual?,
+      },
+      {
+        previous_number: 6,
+        current_number: 6,
+        patch_position: 2,
+        type: :contextual?,
+      },
+      {
+        previous_number: 7,
+        current_number: 7,
+        patch_position: 3,
+        type: :contextual?,
+      },
+      {
+        previous_number: 8,
+        current_number: nil,
+        patch_position: 4,
+        type: :deletion?,
+      },
+      {
+        previous_number: nil,
+        current_number: 8,
+        patch_position: 5,
+        type: :addition?,
+      },
+      {
+        previous_number: 9,
+        current_number: 9,
+        patch_position: 6,
+        type: :contextual?,
+      },
+      {
+        previous_number: 10,
+        current_number: 10,
+        patch_position: 7,
+        type: :contextual?,
+      },
     ]
 
     expected_lines.each_with_index do |expected_line, index|
@@ -333,6 +693,12 @@ class GithubDiffParserTest < Minitest::Test
       actual.patch_position,
       "The patch position don't match. Expected: #{expected[:patch_position]}, Actual: #{actual.patch_position}",
     )
+
+    # assert_equal(
+    #   expected[:content],
+    #   actual.content,
+    #   "The content don't match. Expected: #{expected[:content]}, Actual: #{actual.content}",
+    # )
 
     assert_predicate(actual, expected[:type])
   end

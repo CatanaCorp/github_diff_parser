@@ -23,36 +23,42 @@ class GithubDiffParserTest < Minitest::Test
         current_number: 6,
         patch_position: 1,
         type: :contextual?,
+        content: "\n",
       },
       {
         previous_number: 7,
         current_number: 7,
         patch_position: 2,
         type: :contextual?,
+        content: "  def test2\n",
       },
       {
         previous_number: 8,
         current_number: 8,
         patch_position: 3,
         type: :contextual?,
+        content: "    \"This file is just added\"\n",
       },
       {
         previous_number: nil,
         current_number: 9,
         patch_position: 4,
         type: :addition?,
+        content: "    \"This is a new line\"\n",
       },
       {
         previous_number: 9,
         current_number: 10,
         patch_position: 5,
         type: :contextual?,
+        content: "  end\n",
       },
       {
         previous_number: 10,
         current_number: 11,
         patch_position: 6,
         type: :contextual?,
+        content: "end\n",
       },
     ]
 
@@ -82,36 +88,42 @@ class GithubDiffParserTest < Minitest::Test
         current_number: 6,
         patch_position: 1,
         type: :contextual?,
+        content: "\n",
       },
       {
         previous_number: 7,
         current_number: 7,
         patch_position: 2,
         type: :contextual?,
+        content: "  def test2\n",
       },
       {
         previous_number: 8,
         current_number: 8,
         patch_position: 3,
         type: :contextual?,
+        content: "    \"This file is just added\"\n",
       },
       {
         previous_number: 9,
         current_number: nil,
         patch_position: 4,
         type: :deletion?,
+        content: "    \"This is a new line\"\n",
       },
       {
         previous_number: 10,
         current_number: 9,
         patch_position: 5,
         type: :contextual?,
+        content: "  end\n",
       },
       {
         previous_number: 11,
         current_number: 10,
         patch_position: 6,
         type: :contextual?,
+        content: "end\n",
       },
     ]
 
@@ -142,42 +154,49 @@ class GithubDiffParserTest < Minitest::Test
         current_number: 5,
         patch_position: 1,
         type: :contextual?,
+        content: "  end\n",
       },
       {
         previous_number: 6,
         current_number: 6,
         patch_position: 2,
         type: :contextual?,
+        content: "\n",
       },
       {
         previous_number: 7,
         current_number: 7,
         patch_position: 3,
         type: :contextual?,
+        content: "  def test2\n",
       },
       {
         previous_number: 8,
         current_number: nil,
         patch_position: 4,
         type: :deletion?,
+        content: "    \"This file is just added\"\n",
       },
       {
         previous_number: nil,
         current_number: 8,
         patch_position: 5,
         type: :addition?,
+        content: "    \"This line is changed\"\n",
       },
       {
         previous_number: 9,
         current_number: 9,
         patch_position: 6,
         type: :contextual?,
+        content: "  end\n",
       },
       {
         previous_number: 10,
         current_number: 10,
         patch_position: 7,
         type: :contextual?,
+        content: "end\n",
       },
     ]
 
@@ -207,60 +226,70 @@ class GithubDiffParserTest < Minitest::Test
         current_number: 1,
         patch_position: 1,
         type: :addition?,
+        content: "# frozen_string_literal: true\n",
       },
       {
         previous_number: nil,
         current_number: 2,
         patch_position: 2,
         type: :addition?,
+        content: "\n",
       },
       {
         previous_number: nil,
         current_number: 3,
         patch_position: 3,
         type: :addition?,
+        content: "class FileAdded\n",
       },
       {
         previous_number: nil,
         current_number: 4,
         patch_position: 4,
         type: :addition?,
+        content: "  def test1\n",
       },
       {
         previous_number: nil,
         current_number: 5,
         patch_position: 5,
         type: :addition?,
+        content: "  end\n",
       },
       {
         previous_number: nil,
         current_number: 6,
         patch_position: 6,
         type: :addition?,
+        content: "\n",
       },
       {
         previous_number: nil,
         current_number: 7,
         patch_position: 7,
         type: :addition?,
+        content: "  def test2\n",
       },
       {
         previous_number: nil,
         current_number: 8,
         patch_position: 8,
         type: :addition?,
+        content: "    \"This file is just added\"\n",
       },
       {
         previous_number: nil,
         current_number: 9,
         patch_position: 9,
         type: :addition?,
+        content: "  end\n",
       },
       {
         previous_number: nil,
         current_number: 10,
         patch_position: 10,
         type: :addition?,
+        content: "end\n",
       },
     ]
 
@@ -290,66 +319,77 @@ class GithubDiffParserTest < Minitest::Test
         current_number: nil,
         patch_position: 1,
         type: :deletion?,
+        content: "{\n",
       },
       {
         previous_number: 2,
         current_number: nil,
         patch_position: 2,
         type: :deletion?,
+        content: "  \"name\": \"canary\",\n",
       },
       {
         previous_number: 3,
         current_number: nil,
         patch_position: 3,
         type: :deletion?,
+        content: "  \"private\": true,\n",
       },
       {
         previous_number: 4,
         current_number: nil,
         patch_position: 4,
         type: :deletion?,
+        content: "  \"dependencies\": {\n",
       },
       {
         previous_number: 5,
         current_number: nil,
         patch_position: 5,
         type: :deletion?,
+        content: "    \"@rails/ujs\": \"^6.0.0\",\n",
       },
       {
         previous_number: 6,
         current_number: nil,
         patch_position: 6,
         type: :deletion?,
+        content: "    \"turbolinks\": \"^5.2.0\",\n",
       },
       {
         previous_number: 7,
         current_number: nil,
         patch_position: 7,
         type: :deletion?,
+        content: "    \"@rails/activestorage\": \"^6.0.0\",\n",
       },
       {
         previous_number: 8,
         current_number: nil,
         patch_position: 8,
         type: :deletion?,
+        content: "    \"@rails/actioncable\": \"^6.0.0\"\n",
       },
       {
         previous_number: 9,
         current_number: nil,
         patch_position: 9,
         type: :deletion?,
+        content: "  },\n",
       },
       {
         previous_number: 10,
         current_number: nil,
         patch_position: 10,
         type: :deletion?,
+        content: "  \"version\": \"0.1.0\"\n",
       },
       {
         previous_number: 11,
         current_number: nil,
         patch_position: 11,
         type: :deletion?,
+        content: "}\n",
       },
     ]
 
@@ -622,6 +662,113 @@ class GithubDiffParserTest < Minitest::Test
     end
   end
 
+  def test_content_when_file_has_no_newlines_on_a_new_file
+    parsed_diffs = GithubDiffParser.parse(read_diff("no_newline"))
+
+    assert_equal(3, parsed_diffs.count)
+
+    hunk = parsed_diffs.first.hunks.first
+    expected_lines = [
+      {
+        previous_number: nil,
+        current_number: 1,
+        patch_position: 1,
+        type: :addition?,
+        content: ".my-class {\n",
+      },
+      {
+        previous_number: nil,
+        current_number: 2,
+        patch_position: 2,
+        type: :addition?,
+        content: "  color: red,\n",
+      },
+      {
+        previous_number: nil,
+        current_number: 3,
+        patch_position: 3,
+        type: :addition?,
+        content: "}",
+      },
+    ]
+
+    expected_lines.each_with_index do |expected_line, index|
+      assert_line(expected_line, hunk.lines[index])
+    end
+
+    hunk = parsed_diffs[1].hunks.first
+    expected_lines = [
+      {
+        previous_number: 1,
+        current_number: 1,
+        patch_position: 1,
+        type: :contextual?,
+        content: ".my-class {\n",
+      },
+      {
+        previous_number: 2,
+        current_number: 2,
+        patch_position: 2,
+        type: :contextual?,
+        content: "  color: red,\n",
+      },
+      {
+        previous_number: 3,
+        current_number: nil,
+        patch_position: 3,
+        type: :deletion?,
+        content: "}\n",
+      },
+      {
+        previous_number: nil,
+        current_number: 3,
+        patch_position: 4,
+        type: :addition?,
+        content: "}",
+      },
+    ]
+
+    expected_lines.each_with_index do |expected_line, index|
+      assert_line(expected_line, hunk.lines[index])
+    end
+
+    hunk = parsed_diffs[2].hunks.first
+    expected_lines = [
+      {
+        previous_number: 1,
+        current_number: 1,
+        patch_position: 1,
+        type: :contextual?,
+        content: ".my-class {\n",
+      },
+      {
+        previous_number: 2,
+        current_number: 2,
+        patch_position: 2,
+        type: :contextual?,
+        content: "  color: red,\n",
+      },
+      {
+        previous_number: 3,
+        current_number: nil,
+        patch_position: 3,
+        type: :deletion?,
+        content: "}",
+      },
+      {
+        previous_number: nil,
+        current_number: 3,
+        patch_position: 4,
+        type: :addition?,
+        content: "}\n",
+      },
+    ]
+
+    expected_lines.each_with_index do |expected_line, index|
+      assert_line(expected_line, hunk.lines[index])
+    end
+  end
+
   def test_mode_bits
     parsed_diffs = GithubDiffParser.parse(read_diff("file_modes"))
 
@@ -694,11 +841,13 @@ class GithubDiffParserTest < Minitest::Test
       "The patch position don't match. Expected: #{expected[:patch_position]}, Actual: #{actual.patch_position}",
     )
 
-    # assert_equal(
-    #   expected[:content],
-    #   actual.content,
-    #   "The content don't match. Expected: #{expected[:content]}, Actual: #{actual.content}",
-    # )
+    if expected[:content]
+      assert_equal(
+        expected[:content],
+        actual.content,
+        "The content don't match. Expected: #{expected[:content]}, Actual: #{actual.content}",
+      )
+    end
 
     assert_predicate(actual, expected[:type])
   end

@@ -28,6 +28,8 @@ module GithubDiffParser
           add_hunk_to_diff(Regexp.last_match)
         when Regexes::LINE_DIFF
           add_line_to_hunk(Regexp.last_match)
+        when Regexes::NO_NEWLINE_AT_EOF
+          @current_diff.lines.last.content.sub!(/\n$/, "")
         end
       end
 

@@ -171,8 +171,10 @@ module GithubDiffParser
         |                                              # OR
         \s                                             # Match empty space ' ' (Considered as a contextual line)
       )                                                # End of named group
-      (?<line>.*)                                      # Match the content of the line itself
+      (?<line>.*\n?)                                   # Match the content of the line itself
       \Z                                               # End of line
     }x
+
+    NO_NEWLINE_AT_EOF = /\\ No newline at end of file/
   end
 end

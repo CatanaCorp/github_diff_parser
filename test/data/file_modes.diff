@@ -1,0 +1,11 @@
+diff --git a/my_executable.rb b/my_executable.rb
+new file mode 100755
+index 0000000..e69de29
+diff --git a/some_other_file b/some_other_file
+new file mode 120000
+index 0000000..c2e492f
+--- /dev/null
++++ b/some_other_file
+@@ -0,0 +1 @@
++some_file.rb
+\ No newline at end of file

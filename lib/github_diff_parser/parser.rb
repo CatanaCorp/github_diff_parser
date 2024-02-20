@@ -57,6 +57,7 @@ module GithubDiffParser
 
       @current_diff.previous_index = match_data[:previous_index]
       @current_diff.new_index = match_data[:new_index]
+      @current_diff.mode ||= Diff::Mode.new("modified", match_data[:bits])
     end
 
     # Called when encountering a `new file mode 100644` or `delete file mode 100644` in the Git Diff output.
@@ -67,7 +68,7 @@ module GithubDiffParser
     def process_diff_file_mode(match_data)
       validate_diff
 
-      @current_diff.file_mode = match_data[:file_mode]
+      @current_diff.mode = Diff::Mode.new(match_data[:file_mode], match_data[:bits])
     end
 
     # Called when encountering a `@@ -0,0 +1,10 @@` in the Git Diff output.

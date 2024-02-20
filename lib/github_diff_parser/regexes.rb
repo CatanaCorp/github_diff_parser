@@ -33,7 +33,8 @@ module GithubDiffParser
       index\s                                          # Match 'index '
       (?<previous_index>[a-z0-9]+)                     # Match and capture alphanumerical chars
       ..                                               # Match '..' literally
-      (?<new_index>[a-z0-9]+)                          # Match and captuer alphanumerical chars
+      (?<new_index>[a-z0-9]+)\s                        # Match and capture alphanumerical chars
+      (?<bits>\d+)?                                    # Optionaly capture the mode bits
     }x
 
     # This Regexp is used to match the header containing the original filename.
@@ -88,7 +89,7 @@ module GithubDiffParser
     MODE_HEADER = %r{
       \A                                               # Start of line
       (?<file_mode>new|deleted)                        # Match 'new' or 'deleted' and capture the group
-      \sfile\smode\s\d+                                # Match ' file mode 100655'
+      \sfile\smode\s(?<bits>\d+)                       # Match ' file mode 100655' and capture the "100655" part
       \Z                                               # End of line
     }x
 

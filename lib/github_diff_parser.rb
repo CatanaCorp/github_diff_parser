@@ -3,6 +3,7 @@
 require_relative "github_diff_parser/version"
 
 module GithubDiffParser
+  Error = Class.new(StandardError)
   InvalidDiff = Class.new(ArgumentError)
 
   autoload :Parser,  "github_diff_parser/parser"

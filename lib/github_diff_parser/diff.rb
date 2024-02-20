@@ -2,6 +2,8 @@
 
 module GithubDiffParser
   class Diff
+    Mode = Struct.new(:operation, :bits)
+
     # @return [String] (see #initialize)
     attr_reader :previous_filename
 
@@ -20,7 +22,10 @@ module GithubDiffParser
     attr_reader :new_index
 
     # @private
-    attr_writer :file_mode, :previous_index, :new_index
+    attr_writer :previous_index, :new_index
+
+    # @private
+    attr_accessor :mode
 
     # @param previous_filename [String] the original filename. Represented by "diff --git /a filename"
     # @param new_filename [String]      the new filename. Represented by "diff --git /b filename"
@@ -73,7 +78,7 @@ module GithubDiffParser
     #
     # @return [Boolean]
     def deleted_mode?
-      @file_mode == "deleted"
+      @mode.operation == "deleted"
     end
 
     # Check if this Diff is set to new mode.
@@ -89,7 +94,7 @@ module GithubDiffParser
     #
     # @return [Boolean]
     def new_mode?
-      @file_mode == "new"
+      @mode.operation == "new"
     end
 
     # Check if this Diff is set to rename mode.
@@ -103,6 +108,29 @@ module GithubDiffParser
     # @return [Boolean]
     def rename_mode?
       previous_filename != new_filename
+    end
+
+    # @return [Boolean] True if this diff applies to a regular file.
+    def normal_file?
+      @mode.bits == "100644"
+    end
+
+    # @return [Boolean] True if this diff applies to an executable.
+    def executable?
+      @mode.bits == "100755"
+    end
+
+    # @return [Boolean] True if this diff applies to a symlink.
+    def symlink?
+      @mode.bits == "120000"
+    end
+
+    # @return [String] The source of the symlink
+    # @raise If this diff doesn't apply to a symlink
+    def symlink_source
+      raise(Error, "This diff doen't apply to a symbolic link") unless symlink?
+
+      lines.first.content
     end
 
     # A utility method that returns the current number of a line who might not be present in the diff.

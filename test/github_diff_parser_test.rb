@@ -29,6 +29,7 @@ class GithubDiffParserTest < Minitest::Test
     expected_lines.each_with_index do |expected_line, index|
       assert_line(expected_line, hunk.lines[index])
     end
+    assert_predicate(parsed_diff, :normal_file?)
   end
 
   def test_line_removed
@@ -57,6 +58,7 @@ class GithubDiffParserTest < Minitest::Test
     expected_lines.each_with_index do |expected_line, index|
       assert_line(expected_line, hunk.lines[index])
     end
+    assert_predicate(parsed_diff, :normal_file?)
   end
 
   def test_line_changed
@@ -87,6 +89,7 @@ class GithubDiffParserTest < Minitest::Test
     expected_lines.each_with_index do |expected_line, index|
       assert_line(expected_line, hunk.lines[index])
     end
+    assert_predicate(parsed_diff, :normal_file?)
   end
 
   def test_file_added
@@ -119,6 +122,7 @@ class GithubDiffParserTest < Minitest::Test
     expected_lines.each_with_index do |expected_line, index|
       assert_line(expected_line, hunk.lines[index])
     end
+    assert_predicate(parsed_diff, :normal_file?)
   end
 
   def test_file_removed
@@ -152,6 +156,7 @@ class GithubDiffParserTest < Minitest::Test
     expected_lines.each_with_index do |expected_line, index|
       assert_line(expected_line, hunk.lines[index])
     end
+    assert_predicate(parsed_diff, :normal_file?)
   end
 
   def test_file_moved
@@ -192,6 +197,7 @@ class GithubDiffParserTest < Minitest::Test
     expected_lines.each_with_index do |expected_line, index|
       assert_line(expected_line, hunk.lines[index])
     end
+    assert_predicate(parsed_diff, :normal_file?)
 
     hunk = parsed_diff.hunks[1]
     assert_equal(18, hunk.lines.count)
@@ -223,6 +229,7 @@ class GithubDiffParserTest < Minitest::Test
     expected_lines.each_with_index do |expected_line, index|
       assert_line(expected_line, hunk.lines[index])
     end
+    assert_predicate(parsed_diff, :normal_file?)
   end
 
   def test_when_range_header_has_no_comma
@@ -253,6 +260,17 @@ class GithubDiffParserTest < Minitest::Test
     expected_lines.each_with_index do |expected_line, index|
       assert_line(expected_line, hunk.lines[index])
     end
+  end
+
+  def test_mode_bits
+    parsed_diffs = GithubDiffParser.parse(read_diff("file_modes"))
+
+    assert_equal(2, parsed_diffs.count)
+    assert_predicate(parsed_diffs.first, :executable?)
+    assert_raises(GithubDiffParser::Error) { parsed_diffs.first.symlink_source }
+
+    assert_predicate(parsed_diffs[1], :symlink?)
+    assert_equal("some_file.rb", parsed_diffs[1].symlink_source)
   end
 
   def test_raise_when_diff_is_not_a_diff

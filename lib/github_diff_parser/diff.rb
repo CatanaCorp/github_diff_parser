@@ -78,7 +78,7 @@ module GithubDiffParser
     #
     # @return [Boolean]
     def deleted_mode?
-      @mode.operation == "deleted"
+      @mode&.operation == "deleted"
     end
 
     # Check if this Diff is set to new mode.
@@ -94,7 +94,7 @@ module GithubDiffParser
     #
     # @return [Boolean]
     def new_mode?
-      @mode.operation == "new"
+      @mode&.operation == "new"
     end
 
     # Check if this Diff is set to rename mode.
@@ -112,17 +112,17 @@ module GithubDiffParser
 
     # @return [Boolean] True if this diff applies to a regular file.
     def normal_file?
-      @mode.bits == "100644"
+      @mode&.bits == "100644"
     end
 
     # @return [Boolean] True if this diff applies to an executable.
     def executable?
-      @mode.bits == "100755"
+      @mode&.bits == "100755"
     end
 
     # @return [Boolean] True if this diff applies to a symlink.
     def symlink?
-      @mode.bits == "120000"
+      @mode&.bits == "120000"
     end
 
     # @return [String] The source of the symlink

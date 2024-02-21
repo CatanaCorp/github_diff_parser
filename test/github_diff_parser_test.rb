@@ -408,6 +408,11 @@ class GithubDiffParserTest < Minitest::Test
     assert_equal("app/my_file.rb", parsed_diff.new_filename)
     assert_equal(0, parsed_diff.hunks.count)
     assert_predicate(parsed_diff, :rename_mode?)
+    refute_predicate(parsed_diff, :new_mode?)
+    refute_predicate(parsed_diff, :deleted_mode?)
+    refute_predicate(parsed_diff, :normal_file?)
+    refute_predicate(parsed_diff, :symlink?)
+    refute_predicate(parsed_diff, :executable?)
   end
 
   def test_rails_diff

@@ -6,6 +6,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## [1.1.1] - 2024-2-21
+### Fixed
+- `GithubDiffParser::Diff#new_mode?` and ``GithubDiffParser::Diff#deleted_mode?` would raise
+  an error with this kind of diff:
+
+  ```diff
+  diff --git a/blabla.rb b/app/my_file.rb
+  similarity index 100%
+  rename from blabla.rb
+  rename to app/my_file.rb
+  ```
+
 ## [1.1.0] - 2024-2-21
 ### Added
 - Github Diff Parser parses the permissions bits and you now have have access to various method

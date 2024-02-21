@@ -811,6 +811,26 @@ class GithubDiffParserTest < Minitest::Test
     assert_equal("03d99f2", parsed_diffs[0].new_index)
   end
 
+  def test_revert
+    parsed_diffs = GithubDiffParser.parse(read_diff("octokit"))
+    assert_equal(1, parsed_diffs.count)
+
+    parsed_diff = parsed_diffs.first
+    reverted_content = parsed_diff.revert(read_fixture("octokit_after.rb"))
+
+    assert_equal(read_fixture("octokit_before.rb"), reverted_content)
+  end
+
+  def test_apply
+    parsed_diffs = GithubDiffParser.parse(read_diff("octokit"))
+    assert_equal(1, parsed_diffs.count)
+
+    parsed_diff = parsed_diffs.first
+    content = parsed_diff.apply(read_fixture("octokit_before.rb"))
+
+    assert_equal(read_fixture("octokit_after.rb"), content)
+  end
+
   private
 
   def assert_equal(expected, *args)

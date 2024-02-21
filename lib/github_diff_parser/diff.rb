@@ -152,6 +152,48 @@ module GithubDiffParser
       end
     end
 
+    # A naive implementation of `$ git apply`.
+    #
+    # @param previous_content [String] The previous content related to this diff.
+    # @return [String] The content after applying this diff to the `previous_content`.
+    def apply(previous_content)
+      lines = previous_content.lines
+      offset = 0
+
+      self.lines.each do |line|
+        if line.addition?
+          lines.insert(line.current_number - 1, line.content)
+          offset += 1
+        elsif line.deletion?
+          lines.delete_at(line.previous_number - 1 + offset)
+          offset -= 1
+        end
+      end
+
+      lines.join
+    end
+
+    # A naive implementation of `$ git apply -R`.
+    #
+    # @param current_content [String] The current content related to this diff.
+    # @return [String] The content after reverting this diff to the `current_content`.
+    def revert(current_content)
+      lines = current_content.lines
+      offset = 0
+
+      self.lines.each do |line|
+        if line.addition?
+          lines.delete_at(line.current_number - 1 + offset)
+          offset -= 1
+        elsif line.deletion?
+          lines.insert(line.previous_number - 1, line.content)
+          offset += 1
+        end
+      end
+
+      lines.join
+    end
+
     private
 
     # Check if a line was shifted. A line is considered shifted if its number is superior to the first hunk's start

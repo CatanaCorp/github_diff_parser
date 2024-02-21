@@ -10,7 +10,11 @@ require "pathname"
 module Minitest
   class Test
     def read_diff(diff_file)
-      Pathname.new(__dir__).join("data", "#{diff_file}.diff").read
+      read_fixture("#{diff_file}.diff")
+    end
+
+    def read_fixture(fixture)
+      Pathname.new(__dir__).join("data", fixture).read
     end
   end
 end

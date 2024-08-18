@@ -47,8 +47,8 @@ module GithubDiffParser
     #
     # @example Representation of the previous_lino_start and new_lino_start in a Git Diff
     #   @@ -6,5 +6,6 @@ def test1 # => The first 6 is the previous_lino_start, the second is the new_lino_start
-    def add_hunk(previous_lino_start, new_lino_start)
-      hunks << Hunk.new(previous_lino_start, new_lino_start)
+    def add_hunk(previous_lino_start, new_lino_start, context)
+      hunks << Hunk.new(previous_lino_start, new_lino_start, context)
     end
 
     # Add a line belonging to the previously processed Git Hunk.

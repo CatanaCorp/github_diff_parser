@@ -81,7 +81,7 @@ module GithubDiffParser
     def add_hunk_to_diff(match_data)
       validate_diff
 
-      @current_diff.add_hunk(match_data[:previous_lino_start], match_data[:new_lino_start])
+      @current_diff.add_hunk(match_data[:previous_lino_start], match_data[:new_lino_start], match_data[:context])
     end
 
     # Called when encountering a `-text` or `+text` or ` text` in the Git Diff output.

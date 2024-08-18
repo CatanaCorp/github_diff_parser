@@ -11,14 +11,19 @@ module GithubDiffParser
     # @return [Integer] (see #initialize)
     attr_reader :new_file_start_line
 
+    # @return [String] (see #initialize)
+    attr_reader :context
+
     # @param previous_file_start_line [String] the starting line number of the hunk for the original file
     # @param new_file_start_line [String] the starting line number of the hunk for the new file
+    # @param context [String]
     #
     # @example Representation of the previous_file_start_line and new_file_start_line in a Git Diff
     #   @@ -6,5 +6,6 @@ def test1 # => The first 6 is the previous_file_start_line the second is the new_file_start_line
-    def initialize(previous_file_start_line, new_file_start_line)
+    def initialize(previous_file_start_line, new_file_start_line, context)
       @previous_file_start_line = Integer(previous_file_start_line)
       @new_file_start_line = Integer(new_file_start_line)
+      @context = context
       @lines = []
     end
 
@@ -81,6 +86,24 @@ module GithubDiffParser
     # @return [GithubDiffParser::Line, nil]
     def find_current_line(line_number)
       lines.find { |line| line.current_number == line_number }
+    end
+
+    # The number of lines in the previous version.
+    #
+    # @example
+    #   "@@ +3,4 -3,8 @@" This would return "4"
+    #   "@@ +3 -3 @@"     This would return "1"
+    def previous_line_count
+      contextual_lines.count + deletion_lines.count
+    end
+
+    # The number of lines in the new version.
+    #
+    # @example
+    #   "@@ +3,4 -3,8 @@" This would return "8"
+    #   "@@ +3 -3 @@"     This would return "1"
+    def new_line_count
+      contextual_lines.count + addition_lines.count
     end
   end
 end

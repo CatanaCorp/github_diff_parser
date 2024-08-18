@@ -16,6 +16,9 @@ class GithubDiffParserTest < Minitest::Test
     assert_equal(6, hunk.lines.count)
     assert_equal(5, hunk.contextual_lines.count)
     assert_equal(1, hunk.addition_lines.count)
+    assert_equal("def test1", hunk.context)
+    assert_equal(5, hunk.previous_line_count)
+    assert_equal(6, hunk.new_line_count)
 
     expected_lines = [
       {
@@ -81,6 +84,9 @@ class GithubDiffParserTest < Minitest::Test
     assert_equal(6, hunk.lines.count)
     assert_equal(5, hunk.contextual_lines.count)
     assert_equal(1, hunk.deletion_lines.count)
+    assert_equal("def test1", hunk.context)
+    assert_equal(6, hunk.previous_line_count)
+    assert_equal(5, hunk.new_line_count)
 
     expected_lines = [
       {
@@ -147,6 +153,9 @@ class GithubDiffParserTest < Minitest::Test
     assert_equal(5, hunk.contextual_lines.count)
     assert_equal(1, hunk.deletion_lines.count)
     assert_equal(1, hunk.addition_lines.count)
+    assert_equal("def test1", hunk.context)
+    assert_equal(6, hunk.previous_line_count)
+    assert_equal(6, hunk.new_line_count)
 
     expected_lines = [
       {
@@ -219,6 +228,9 @@ class GithubDiffParserTest < Minitest::Test
     hunk = parsed_diff.hunks.first
     assert_equal(10, hunk.lines.count)
     assert_equal(10, hunk.addition_lines.count)
+    assert_equal("", hunk.context)
+    assert_equal(0, hunk.previous_line_count)
+    assert_equal(10, hunk.new_line_count)
 
     expected_lines = [
       {
@@ -312,6 +324,9 @@ class GithubDiffParserTest < Minitest::Test
     hunk = parsed_diff.hunks.first
     assert_equal(11, hunk.lines.count)
     assert_equal(11, hunk.deletion_lines.count)
+    assert_equal("", hunk.context)
+    assert_equal(11, hunk.previous_line_count)
+    assert_equal(0, hunk.new_line_count)
 
     expected_lines = [
       {
@@ -428,6 +443,9 @@ class GithubDiffParserTest < Minitest::Test
     assert_equal(7, hunk.lines.count)
     assert_equal(6, hunk.contextual_lines.count)
     assert_equal(1, hunk.deletion_lines.count)
+    assert_equal("class Railtie < Rails::Railtie # :nodoc:", hunk.context)
+    assert_equal(7, hunk.previous_line_count)
+    assert_equal(6, hunk.new_line_count)
 
     expected_lines = [
       {
@@ -484,6 +502,9 @@ class GithubDiffParserTest < Minitest::Test
     assert_equal(6, hunk.contextual_lines.count)
     assert_equal(3, hunk.deletion_lines.count)
     assert_equal(9, hunk.addition_lines.count)
+    assert_equal("class Railtie < Rails::Railtie # :nodoc:", hunk.context)
+    assert_equal(9, hunk.previous_line_count)
+    assert_equal(15, hunk.new_line_count)
 
     expected_lines = [
       {

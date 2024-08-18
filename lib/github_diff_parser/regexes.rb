@@ -115,7 +115,7 @@ module GithubDiffParser
       @@\s                                             # Match '@@ '
       -(?<previous_lino_start>\d+)(,\d+)?\s            # Match '-1,11 ' or match '-1 ' and capture the '1' part
       \+(?<new_lino_start>\d+)(,\d+)?\s                # Match '+1,34 ' or match '+1 ' and capture the '1' part
-      @@.*                                             # Match '@@ Any text'
+      @@\s?(?<context>.*)                              # Match '@@ Any text' and capture the 'Any text' part
       \Z                                               # End of line
     }x
 

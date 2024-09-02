@@ -6,6 +6,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## [1.2.0] - 2024-9-2
+### Added
+- Added `GithubDiffParser::Hunk#context` which returns the context of the hunk.
+  In this example, it would return "def blabla"
+  ```diff
+  @@ +1,6 -1,18 def blabla
+  ```
+
+- Added `GithubDiffParser::Hunk#previous_line_count` which returns the prevous line count in a hunk.
+  In this example, it would return 6.
+  ```diff
+  @@ +1,6 -1,18 def blabla
+  ```
+
+- Added `GithubDiffParser::Hunk#new_line_count` which returns the prevous line count in a hunk.
+  In this example, it would return 18.
+  ```diff
+  @@ +1,6 -1,18 def blabla
+  ```
+
+### Fixed
+- `GithubDiffParser::Diff#previous_line_number_is_now` could return a wrong value
+  for the line number 1 in a file.
+
 ## [1.1.1] - 2024-2-21
 ### Fixed
 - `GithubDiffParser::Diff#new_mode?` and ``GithubDiffParser::Diff#deleted_mode?` would raise

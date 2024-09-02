@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    github_diff_parser (1.1.1)
+    github_diff_parser (1.2.0)
 
 GEM
   remote: https://rubygems.org/

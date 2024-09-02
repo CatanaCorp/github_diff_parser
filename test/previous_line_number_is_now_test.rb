@@ -55,4 +55,12 @@ class PreviousLineNumberIsNowTest < Minitest::Test
 
     assert_equal(68, current_number)
   end
+
+  def test_when_first_line_is_shifted
+    parsed_diffs = GithubDiffParser.parse(read_diff("first_line_shifted"))
+
+    current_number = parsed_diffs.first.previous_line_number_is_now(1)
+
+    assert_equal(3, current_number)
+  end
 end

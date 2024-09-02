@@ -140,7 +140,7 @@ module GithubDiffParser
     #
     # @return [Integer]
     def previous_line_number_is_now(line_number)
-      return line_number unless line_shifted?(line_number)
+      return line_number if line_unchanged?(line_number)
 
       applicable_hunk = last_applicable_hunk_for_line(line_number)
       line = applicable_hunk.find_previous_line(line_number)
@@ -196,16 +196,13 @@ module GithubDiffParser
 
     private
 
-    # Check if a line was shifted. A line is considered shifted if its number is superior to the first hunk's start
-    # range.
-    #
     # @param line_number [Integer]
     #
     # @return [Boolean]
-    def line_shifted?(line_number)
+    def line_unchanged?(line_number)
       first_hunk = hunks.first
 
-      line_number > first_hunk.new_file_start_line
+      line_number < first_hunk.new_file_start_line
     end
 
     # Find the last hunk that shifts the line. We need the last because we know it's the one that will shift the line

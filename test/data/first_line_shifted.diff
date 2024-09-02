@@ -1,0 +1,10 @@
+diff --git a/my_file.rb b/my_file.rb
+index 479ddd7700..80acf01257 100644
+--- a/my_file.rb
++++ b/my_file.rb
+@@ -1,2 +1,4 @@
++# typed: false
++# frozen_string_literal: true
+ # Blablabla
+ # Example
+ # Something something

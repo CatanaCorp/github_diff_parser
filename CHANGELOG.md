@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## [1.3.0] - 2025-1-8
+### Removed
+
+- Remove support for Ruby 3.0. The minimum version to use this gem is Ruby 3.1.
+
 ## [1.2.0] - 2024-9-2
 ### Added
 - Added `GithubDiffParser::Hunk#context` which returns the context of the hunk.
